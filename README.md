@@ -1,11 +1,38 @@
-# mlflow-migrate-utility
+<div align="left">
+  <h1>mlflow-migrate-utility</h1>
+</div>
+
+<!-- TOC -->
+
+- [About](#about)
+  - [Status](#status)
+- [Requirements](#requirements)
+  - [Tested with](#tested-with)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Examples](#examples)
+  - [Migrate from S3 to Azure blob](#migrate-from-s3-to-azure-blob)
+  - [Move to a new Azure storage account](#move-to-a-new-azure-storage-account)
+- [Development](#development)
+- [Testing](#testing)
+- [TODO](#todo)
+
+<!-- /TOC -->
+
+## About
+
+Utility for migrating MLflow metadata
+
+### Status
+
+**ALPHA** - bleeding edge / work-in-progress
 
 ## Requirements
 
 - [pyenv](https://github.com/pyenv/pyenv)
 - [pipenv](https://github.com/pypa/pipenv)
 
-Tested with
+### Tested with
 - MLflow 1.11.0
 - Python 3.8.6
 
