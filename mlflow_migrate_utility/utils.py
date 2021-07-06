@@ -5,7 +5,11 @@ from urllib.parse import urlparse
 import psycopg2
 import psycopg2.extras
 
-from mlflow_migrate_utility.exceptions import InvalidLocationError
+from mlflow_migrate_utility.exceptions import (
+    EmptyStorageAccountError,
+    InvalidCloudVendorError,
+    InvalidLocationError,
+)
 from mlflow_migrate_utility.log import get_logger
 
 logger = get_logger(__name__)
@@ -48,7 +52,7 @@ def parse(location: str, vendor: str) -> ArtifactLocation:
     elif vendor == CloudVendor.AZURE:
         return parse_azure(location)
     else:
-        raise ValueError("Invalid CloudVendor name")
+        raise InvalidCloudVendorError
 
 
 def concat_aws(location: ArtifactLocation) -> str:
@@ -65,7 +69,7 @@ def concat(location: ArtifactLocation, vendor: str) -> str:
     elif vendor == CloudVendor.AZURE:
         return concat_azure(location)
     else:
-        raise ValueError("Invalid CloudVendor name")
+        raise InvalidCloudVendorError
 
 
 def is_valid(location: str):
@@ -84,7 +88,9 @@ def convert(location: str, origin: str, target: str, storage_account: str) -> st
     if not is_valid(location):
         raise InvalidLocationError(f"Invalid location: {location}")
     if target == CloudVendor.AZURE and not storage_account:
-        raise ValueError("Storage account cannot be empty for Azure target")
+        raise EmptyStorageAccountError(
+            "Storage account cannot be empty for Azure target"
+        )
 
     al = parse(location, origin)
     al.schema = get_schema(target)

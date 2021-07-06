@@ -24,3 +24,4 @@ allow_prereleases = true
 
 [scripts]
 test="python -m pytest --verbose -s -p no:warnings --cov-report term-missing --cov 'mlflow_migrate_utility'"
+lint="pre-commit run --all-files"
